@@ -12,6 +12,9 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
+body.landing-page {
+    background: #fff !important;
+}
 }
 
 body.landing-page {
