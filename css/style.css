@@ -29,12 +29,10 @@ h1 {
   text-align: center;
 }
 
-p, .note {
-  margin-bottom: 2.5em;
+  margin-bottom: 4em;
 }
 
-.choices {
-  margin-top: 2.5em;
+  margin-top: 4em;
 }
 
 .choices {
