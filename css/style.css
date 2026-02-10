@@ -23,11 +23,18 @@ h1 {
   text-align: center;
 }
 
-.note {
   color: #bbb;
   font-size: 1.1em;
   margin-bottom: 2em;
   text-align: center;
+}
+
+p, .note {
+  margin-bottom: 2.5em;
+}
+
+.choices {
+  margin-top: 2.5em;
 }
 
 .choices {
