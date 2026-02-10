@@ -1,30 +1,31 @@
 * {
     margin: 0;
     padding: 0;
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+    box-sizing: border-box;
+}
 
-    body.story-page {
-        font-family: 'Georgia', serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: #fff;
-        min-height: 100vh;
-        margin: 0;
+body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
 
 body.landing-page {
     background: white;
 }
-    body.story-page {
-        font-family: 'Georgia', serif;
-        background: #000;
-        color: #fff;
-        min-height: 100vh;
-        margin: 0;
-            box-sizing: border-box;
-        }
+
+.landing-container {
+    max-width: 700px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
 }
 
 .landing-title {
@@ -34,18 +35,6 @@ body.landing-page {
     display: block;
     margin-bottom: 20px;
 }
-
-        body.landing-page {
-            font-family: 'Georgia', serif;
-            background: #fff;
-            color: #222;
-            min-height: 100vh;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-        }
 
 .landing-subtitle {
     font-size: 1em;
@@ -72,7 +61,7 @@ body.landing-page {
     font-size: 1.3em;
     border-radius: 50px;
     cursor: pointer;
-        box-shadow: none;
+    transition: all 0.3s ease;
     font-weight: 700;
     letter-spacing: 2px;
 }
@@ -86,7 +75,7 @@ body.landing-page {
     transform: scale(0.95);
 }
 
-        color: #fff;
+.container {
     max-width: 700px;
     width: 100%;
     background: white;
@@ -94,7 +83,7 @@ body.landing-page {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     padding: 40px;
 }
-        background: #111;
+
 .story-header {
     text-align: center;
     margin-bottom: 40px;
