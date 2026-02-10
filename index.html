@@ -6,20 +6,10 @@
     <title>Choose Your Own Adventure</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div class="container">
-        <div class="story-header">
-           <img src="images/FINALTITLECARD.png" alt="Choose Your Own Adventure" class="title-image" />
-            <p class="breadcrumb" id="breadcrumb">Start</p>
-        </div>
-
-        <div class="story-content" id="storyContent">
-            <!-- Story nodes are dynamically inserted here -->
-        </div>
-
-        <button class="reset-btn" onclick="resetStory()">Start Over</button>
+<body class="landing-page">
+    <div class="landing-container">
+        <img src="images/FINALTITLECARD.png" alt="Choose Your Own Adventure" class="landing-title" />
+        <button class="start-btn" onclick="location.href='story.html'">Start Your Adventure</button>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
