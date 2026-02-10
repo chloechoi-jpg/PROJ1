@@ -158,11 +158,6 @@ const visitedNodes = ['start'];
 function displayStory() {
     const node = storyData[currentNode];
     const storyContent = document.getElementById('storyContent');
-    const breadcrumb = document.getElementById('breadcrumb');
-
-    // Update breadcrumb
-    breadcrumb.textContent = node.breadcrumb || 'Unknown Path';
-
     // Clear previous content
     storyContent.innerHTML = '';
 
@@ -215,7 +210,7 @@ function resetStory() {
     visitedNodes.length = 0;
     visitedNodes.push('start');
     displayStory();
-    document.querySelector('.story-header').scrollIntoView({ behavior: 'smooth' });
+    document.querySelector('.story-content').scrollIntoView({ behavior: 'smooth' });
 }
 
 // Initialize the story on page load

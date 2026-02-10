@@ -155,9 +155,14 @@ body.landing-page {
 .choice-btn:active {
     transform: translateX(8px);
 }
-
+        margin: 0;
 .reset-btn {
     display: block;
+    body.story-page {
+        background: #000;
+        color: #fff;
+        min-height: 100vh;
+    }
     margin: 0 auto;
     background: #e74c3c;
     color: white;
@@ -202,27 +207,30 @@ body.landing-page {
     to {
         opacity: 1;
         transform: translateY(0);
+    .choice-btn, .reset-btn {
+        display: block;
+        width: 100%;
+        max-width: 400px;
+        margin: 24px auto 0 auto;
+        padding: 18px 0;
+        font-size: 1.4rem;
+        font-weight: bold;
+        letter-spacing: 0.1em;
+        background: #fff;
+        color: #000;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.13s, box-shadow 0.13s;
+        box-shadow: 0 2px 12px rgba(255,255,255,0.08);
     }
-}
-
-.story-content {
-    animation: fadeIn 0.5s ease;
-}
-
-/* Responsive design */
-@media (max-width: 600px) {
-    .container {
-        padding: 20px;
+    .choice-btn:hover, .reset-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(255,255,255,0.16);
     }
-
-    .story-header h1 {
-        font-size: 1.8em;
+    .choice-btn:active, .reset-btn:active {
+        transform: scale(0.98);
     }
-
-    .story-text {
-        font-size: 1em;
-    }
-
     .choice-btn {
         padding: 12px 20px;
         font-size: 0.95em;
