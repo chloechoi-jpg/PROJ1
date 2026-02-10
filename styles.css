@@ -31,7 +31,7 @@ body.landing-page {
 .landing-title {
     max-width: 100%;
     height: auto;
-    max-height: 500px;
+    max-height: 700px;
     display: block;
     margin-bottom: 20px;
 }
@@ -48,30 +48,31 @@ body.landing-page {
 .landing-video {
     max-width: 100%;
     height: auto;
-    max-height: 300px;
+    max-height: 450px;
     border-radius: 8px;
     display: block;
 }
 
 .start-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #000;
     color: white;
     border: none;
-    padding: 18px 50px;
-    font-size: 1.2em;
-    border-radius: 8px;
+    padding: 20px 60px;
+    font-size: 1.3em;
+    border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 2px;
 }
 
 .start-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 .start-btn:active {
-    transform: scale(0.98);
+    transform: scale(0.95);
 }
 
 .container {
