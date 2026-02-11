@@ -137,7 +137,10 @@
 			btn.style.top = `${pos.y-20}px`;
 			btn.textContent = page;
 			btn.onclick = ()=>location.href=`page${page}.html`;
-			if (endings.includes(Number(page))) btn.style.background = '#f093fb';
+			if (endings.includes(Number(page))) {
+				btn.style.background = '#f093fb';
+				btn.style.border = '2px solid #fff';
+			}
 			container.appendChild(btn);
 		});
 	</script>
