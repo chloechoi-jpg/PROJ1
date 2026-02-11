@@ -135,9 +135,9 @@ h1 {
   margin-left: auto;
   margin-right: auto;
   position: absolute;
-  left: 20%;
+  left: 5%;
   top: 0;
-  transform: translateX(-20%);
+  transform: translateX(-5%);
   z-index: 2;
 }
 .landing-container {
