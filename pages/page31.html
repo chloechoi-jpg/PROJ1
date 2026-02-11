@@ -17,21 +17,21 @@
 			padding-top: 40px;
 		}
 		.tree-svg {
-			width: 1200px;
-			height: 900px;
+			width: 900px;
+			height: 600px;
 			background: transparent;
 			margin-bottom: 40px;
 		}
 		.tree-btn {
 			position: absolute;
-			width: 60px;
-			height: 40px;
+			width: 50px;
+			height: 32px;
 			background: #764ba2;
 			color: #fff;
 			border-radius: 8px;
 			border: none;
 			font-family: 'Roboto Mono', monospace;
-			font-size: 1em;
+			font-size: 0.9em;
 			font-weight: bold;
 			cursor: pointer;
 			box-shadow: 0 2px 8px rgba(0,0,0,0.2);
@@ -46,8 +46,12 @@
 		}
 		.tree-svg-container {
 			position: relative;
-			width: 1200px;
-			height: 900px;
+			width: 900px;
+			height: 600px;
+			overflow: auto;
+			border: 2px solid #444;
+			border-radius: 12px;
+			background: #222;
 		}
 	</style>
 </head>
@@ -112,7 +116,7 @@
 		let nodePos = {};
 		levels.forEach((nodes, level) => {
 			nodes.forEach((page, idx) => {
-				nodePos[page] = {x: 100 + idx * (1000/(nodes.length-1)), y: 80 + level * 60};
+				nodePos[page] = {x: 60 + idx * (800/(nodes.length-1)), y: 50 + level * 40};
 			});
 		});
 		// Draw lines
