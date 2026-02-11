@@ -1,3 +1,55 @@
+/* Rotating circle navigation styles */
+.circle-nav-wrapper {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  margin: 40px auto;
+}
+.circle-nav-lines {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.circle-nav {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 500px;
+  height: 500px;
+  z-index: 2;
+}
+.circle-anchor {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: #222;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  border: 2px solid #888;
+}
+.circle-anchor:hover {
+  background: #764ba2;
+  color: #fff;
+  transform: scale(1.2);
+  z-index: 3;
+}
+.circle-nav {
+  animation: rotateCircle 10s linear infinite;
+}
+@keyframes rotateCircle {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 body {
   font-family: 'Georgia', serif;
   background: linear-gradient(135deg, #000000 0%, #000000 100%);

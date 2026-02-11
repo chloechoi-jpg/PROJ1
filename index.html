@@ -10,10 +10,48 @@
     <div class="landing-container">
         <img src="images/FINALTITLECARD.png" alt="Choose Your Own Adventure" class="landing-title" />
         <p class="landing-subtitle">Click the "Start" button to begin the story</p>
-        <video class="landing-video" autoplay muted loop>
-            <source src="images/indexanimation.mp4" type="video/mp4">
-        </video>
+        <!-- Rotating circle of anchor points (replaces video) -->
+        <div class="circle-nav-wrapper">
+            <svg class="circle-nav-lines" width="500" height="500"></svg>
+            <div class="circle-nav">
+                <!-- Anchor points will be injected by JS -->
+            </div>
+        </div>
         <button class="start-btn" onclick="location.href='pages/page1.html'">START</button>
+
+        <!-- Rotating circle of anchor points -->
+        <div class="circle-nav-wrapper">
+            <svg class="circle-nav-lines" width="500" height="500"></svg>
+            <div class="circle-nav">
+                <!-- Anchor points will be injected by JS -->
+            </div>
+        </div>
     </div>
+
+    <script>
+    // Generate 30 anchor points
+    const pages = Array.from({length: 30}, (_, i) => `pages/page${i+1}.html`);
+    const circleNav = document.querySelector('.circle-nav');
+    const svg = document.querySelector('.circle-nav-lines');
+    const radius = 200;
+    const centerX = 250;
+    const centerY = 250;
+    let points = [];
+    pages.forEach((page, idx) => {
+        const angle = (2 * Math.PI * idx) / pages.length;
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        points.push({x, y});
+        const a = document.createElement('a');
+        a.href = page;
+        a.className = 'circle-anchor';
+        a.style.left = `${x - 20}px`;
+        a.style.top = `${y - 20}px`;
+        a.textContent = idx + 1;
+        circleNav.appendChild(a);
+    });
+    // Draw lines connecting all points
+    svg.innerHTML = points.map((p1, i) => points.slice(i+1).map(p2 => `<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="#888" stroke-width="1" />`).join('')).join('');
+    </script>
 </body>
 </html>
