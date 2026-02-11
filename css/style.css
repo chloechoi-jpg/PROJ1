@@ -34,7 +34,7 @@
   font-size: 1.1em;
   text-decoration: none;
   transition: background 0.2s, color 0.2s, transform 0.2s;
-  border: none;
+  border: 1.5px solid #111;
   font-family: 'Roboto Mono', monospace;
 }
 .circle-anchor:hover {
