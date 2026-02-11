@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Story Tree Diagram</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<style>
+		.tree-container {
+			width: 100vw;
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-start;
+			background: #222;
+			padding-top: 40px;
+		}
+		.tree-svg {
+			width: 1200px;
+			height: 900px;
+			background: transparent;
+			margin-bottom: 40px;
+		}
+		.tree-btn {
+			position: absolute;
+			width: 60px;
+			height: 40px;
+			background: #764ba2;
+			color: #fff;
+			border-radius: 8px;
+			border: none;
+			font-family: 'Roboto Mono', monospace;
+			font-size: 1em;
+			font-weight: bold;
+			cursor: pointer;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+			z-index: 2;
+			transition: transform 0.2s;
+		}
+		.tree-btn:hover {
+			background: #f093fb;
+			color: #222;
+			transform: scale(1.1);
+			z-index: 3;
+		}
+		.tree-svg-container {
+			position: relative;
+			width: 1200px;
+			height: 900px;
+		}
+	</style>
+</head>
+<body>
+	<div class="tree-container">
+		<h1 style="color:#fff;">Story Routes Tree Diagram</h1>
+		<div class="tree-svg-container">
+			<svg class="tree-svg"></svg>
+		</div>
+	</div>
+	<script>
+		// Tree structure: page, children
+		const tree = [
+			{page: 1, children: [2,3,4]},
+			{page: 2, children: [5,6,1]},
+			{page: 3, children: [7,8,1]},
+			{page: 4, children: [9,10,1]},
+			{page: 5, children: [11,12]},
+			{page: 6, children: [13,5]},
+			{page: 7, children: [14,8]},
+			{page: 8, children: [15,16]},
+			{page: 9, children: [17,18]},
+			{page: 10, children: [15,19]},
+			{page: 11, children: [20,21]},
+			{page: 12, children: [22,11]},
+			{page: 13, children: [22,20]},
+			{page: 14, children: [20,22]},
+			{page: 15, children: [21,23]},
+			{page: 16, children: [24,25]},
+			{page: 17, children: [20,18]},
+			{page: 18, children: [6,7]},
+			{page: 19, children: [8,9]},
+			{page: 20, children: [10,11]},
+			{page: 21, children: [12,13]},
+			{page: 22, children: [14,15]},
+			{page: 23, children: [16,17]},
+			{page: 24, children: [18,19]},
+			{page: 25, children: [20,21]},
+			{page: 26, children: [22,23]},
+			{page: 27, children: [24,25]},
+			{page: 28, children: [26,27]},
+			{page: 29, children: [28,30]},
+			{page: 30, children: [1,2]}
+		];
+		// Endings: 24, 26, 27, 30 (example)
+		const endings = [24,26,27,30];
+		// Layout: vertical tree
+		const svg = document.querySelector('.tree-svg');
+		const container = document.querySelector('.tree-svg-container');
+		const nodeY = (level) => 80 + level * 60;
+		const nodeX = (idx, total) => 100 + idx * (1000/(total-1));
+		// Build tree levels
+		let levels = [];
+		let visited = new Set();
+		function buildLevels(root, level=0) {
+			if (!levels[level]) levels[level] = [];
+			if (!visited.has(root)) {
+				levels[level].push(root);
+				visited.add(root);
+				let node = tree.find(t=>t.page===root);
+				if (node && node.children) {
+					node.children.forEach(child=>buildLevels(child,level+1));
+				}
+			}
+		}
+		buildLevels(1);
+		// Draw nodes and lines
+		let nodePos = {};
+		levels.forEach((nodes, level) => {
+			nodes.forEach((page, idx) => {
+				nodePos[page] = {x: nodeX(idx, nodes.length), y: nodeY(level)};
+			});
+		});
+		// Draw lines
+		tree.forEach(node => {
+			let from = nodePos[node.page];
+			node.children.forEach(child => {
+				let to = nodePos[child];
+				if (from && to) {
+					svg.innerHTML += `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#bbb" stroke-width="2" />`;
+				}
+			});
+		});
+		// Add buttons
+		Object.entries(nodePos).forEach(([page, pos]) => {
+			let btn = document.createElement('button');
+			btn.className = 'tree-btn';
+			btn.style.left = `${pos.x-30}px`;
+			btn.style.top = `${pos.y-20}px`;
+			btn.textContent = page;
+			btn.onclick = ()=>location.href=`page${page}.html`;
+			if (endings.includes(Number(page))) btn.style.background = '#f093fb';
+			container.appendChild(btn);
+		});
+	</script>
+</body>
+</html>
