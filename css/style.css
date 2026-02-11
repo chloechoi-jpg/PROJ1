@@ -36,6 +36,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   transition: background 0.2s, color 0.2s, transform 0.2s;
   border: 2px solid #888;
+  font-family: 'Roboto Mono', monospace;
 }
 .circle-anchor:hover {
   background: #764ba2;

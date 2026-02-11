@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Your Own Adventure</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap">
 </head>
 <body class="landing-page">
     <div class="landing-container">
@@ -28,30 +29,99 @@
         </div>
     </div>
 
-    <script>
-    // Generate 30 anchor points
-    const pages = Array.from({length: 30}, (_, i) => `pages/page${i+1}.html`);
-    const circleNav = document.querySelector('.circle-nav');
-    const svg = document.querySelector('.circle-nav-lines');
-    const radius = 200;
-    const centerX = 250;
-    const centerY = 250;
-    let points = [];
-    pages.forEach((page, idx) => {
-        const angle = (2 * Math.PI * idx) / pages.length;
-        const x = centerX + radius * Math.cos(angle);
-        const y = centerY + radius * Math.sin(angle);
-        points.push({x, y});
-        const a = document.createElement('a');
-        a.href = page;
-        a.className = 'circle-anchor';
-        a.style.left = `${x - 20}px`;
-        a.style.top = `${y - 20}px`;
-        a.textContent = idx + 1;
-        circleNav.appendChild(a);
-    });
-    // Draw lines connecting all points
-    svg.innerHTML = points.map((p1, i) => points.slice(i+1).map(p2 => `<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="#888" stroke-width="1" />`).join('')).join('');
-    </script>
+        <script>
+        // Map of page links (story paths)
+        const pageLinks = [
+            [2,3,4], // page1
+            [5,6,1], // page2
+            [7,8,1], // page3
+            [9,10,1], // page4
+            [11,12], // page5
+            [13,5], // page6
+            [14,8], // page7
+            [15,16], // page8
+            [17,18], // page9
+            [15,19], // page10
+            [20,21], // page11
+            [22,11], // page12
+            [22,20], // page13
+            [20,22], // page14
+            [21,23], // page15
+            [24,25], // page16
+            [20,18], // page17
+            [6,7], // page18
+            [8,9], // page19
+            [10,11], // page20
+            [12,13], // page21
+            [14,15], // page22
+            [16,17], // page23
+            [18,19], // page24
+            [20,21], // page25
+            [22,23], // page26
+            [24,25], // page27
+            [26,27], // page28
+            [28,30], // page29
+            [1,2]    // page30
+        ];
+
+        const pages = Array.from({length: 30}, (_, i) => `pages/page${i+1}.html`);
+        const circleNav = document.querySelector('.circle-nav');
+        const svg = document.querySelector('.circle-nav-lines');
+        const radius = 200;
+        const centerX = 250;
+        const centerY = 250;
+        let points = [];
+        pages.forEach((page, idx) => {
+                const angle = (2 * Math.PI * idx) / pages.length;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                points.push({x, y});
+                const a = document.createElement('a');
+                a.href = page;
+                a.className = 'circle-anchor';
+                a.style.left = `${x - 20}px`;
+                a.style.top = `${y - 20}px`;
+                a.textContent = idx + 1;
+                circleNav.appendChild(a);
+        });
+
+        // Draw lines connecting only story paths
+        function drawLines(rot = 0) {
+            svg.innerHTML = '';
+            for (let i = 0; i < pageLinks.length; i++) {
+                const fromIdx = i;
+                pageLinks[i].forEach(toIdx => {
+                    // Convert to zero-based index
+                    const to = toIdx - 1;
+                    // Calculate rotated positions
+                    const angleFrom = (2 * Math.PI * fromIdx) / pages.length + rot;
+                    const angleTo = (2 * Math.PI * to) / pages.length + rot;
+                    const x1 = centerX + radius * Math.cos(angleFrom);
+                    const y1 = centerY + radius * Math.sin(angleFrom);
+                    const x2 = centerX + radius * Math.cos(angleTo);
+                    const y2 = centerY + radius * Math.sin(angleTo);
+                    svg.innerHTML += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#888" stroke-width="1" />`;
+                });
+            }
+        }
+
+        // Animate rotation
+        let rot = 0;
+        function animate() {
+            rot += 0.01;
+            // Move anchors
+            document.querySelectorAll('.circle-anchor').forEach((a, idx) => {
+                const angle = (2 * Math.PI * idx) / pages.length + rot;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                a.style.left = `${x - 20}px`;
+                a.style.top = `${y - 20}px`;
+            });
+            drawLines(rot);
+            requestAnimationFrame(animate);
+        }
+        drawLines();
+        animate();
+        </script>
 </body>
 </html>
