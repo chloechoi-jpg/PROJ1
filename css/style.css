@@ -134,6 +134,15 @@ h1 {
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.landing-container {
+  position: relative;
+  min-height: 1200px;
 }
 
 .landing-subtitle {
