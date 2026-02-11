@@ -108,7 +108,7 @@
         // Animate rotation
         let rot = 0;
         function animate() {
-            rot += 0.01;
+            rot += 0.003; // slower rotation
             // Move anchors
             document.querySelectorAll('.circle-anchor').forEach((a, idx) => {
                 const angle = (2 * Math.PI * idx) / pages.length + rot;
