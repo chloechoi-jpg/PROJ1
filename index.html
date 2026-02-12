@@ -115,6 +115,25 @@
         }
         drawLines();
         animate();
+        // Static SVG lines for story paths
+        const staticLines = (() => {
+            let lines = '';
+            for (let i = 0; i < pageLinks.length; i++) {
+                const fromIdx = i;
+                pageLinks[i].forEach(toIdx => {
+                    const to = toIdx - 1;
+                    const angleFrom = (2 * Math.PI * fromIdx) / pages.length;
+                    const angleTo = (2 * Math.PI * to) / pages.length;
+                    const x1 = centerX + radius * Math.cos(angleFrom);
+                    const y1 = centerY + radius * Math.sin(angleFrom);
+                    const x2 = centerX + radius * Math.cos(angleTo);
+                    const y2 = centerY + radius * Math.sin(angleTo);
+                    lines += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#888" stroke-width="1" />\n`;
+                });
+            }
+            return lines;
+        })();
+        document.querySelector('.circle-nav-lines').insertAdjacentHTML('afterbegin', staticLines);
         </script>
 </body>
 </html>
