@@ -52,7 +52,7 @@
   100% { transform: rotate(360deg); }
 }
 body {
-  font-family: 'Georgia', serif;
+  font-family: 'Roboto Mono', monospace;
   background: linear-gradient(135deg, #000000 0%, #000000 100%);
   min-height: 100vh;
   display: flex;
