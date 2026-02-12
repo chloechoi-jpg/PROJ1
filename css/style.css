@@ -22,7 +22,7 @@
   cursor: pointer;
   font-family: 'Roboto Mono', monospace;
 }
- .center-btn:hover {
+.center-btn:hover {
   background: #5a357a;
 }
 }
