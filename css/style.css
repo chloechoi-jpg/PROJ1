@@ -5,6 +5,27 @@
   height: 500px;
   margin: 40px auto;
 }
+
+.center-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  font-size: 1.3em;
+  padding: 18px 40px;
+  border-radius: 30px;
+  background: #764ba2;
+  color: #fff;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  font-family: 'Roboto Mono', monospace;
+}
+ .center-btn:hover {
+  background: #5a357a;
+}
+}
 .circle-nav-lines {
   position: absolute;
   left: 0;
