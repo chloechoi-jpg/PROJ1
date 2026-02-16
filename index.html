@@ -10,12 +10,12 @@
 <body class="landing-page">
     <div class="landing-container">
         <img src="images/FINALTITLECARD.png" alt="Choose Your Own Adventure" class="landing-title" />
+        <!-- Infinity (figure 8) animation of anchor points -->
+        <div class="infinity-nav-wrapper">
+            <div class="infinity-nav"></div>
+        </div>
         <div style="text-align:center; margin-top: 40px; margin-bottom: 20px;">
             <button class="start-btn" onclick="location.href='pages/page1.html'">START</button>
-        </div>
-        <!-- Infinity (figure 8) animation of anchor points -->
-        <div class="infinity-nav-wrapper" style="position:relative; width:500px; height:500px; margin:0 auto;">
-            <div class="infinity-nav" style="position:absolute; left:0; top:0; width:100%; height:100%;"></div>
         </div>
     </div>
 
@@ -23,12 +23,12 @@
         // Map of page links (story paths)
         const pages = Array.from({length: 30}, (_, i) => `pages/page${i+1}.html`);
         const infinityNav = document.querySelector('.infinity-nav');
-        const width = 500;
-        const height = 500;
+        const width = 700;
+        const height = 350;
         const cx = width / 2;
         const cy = height / 2;
-        const a = 140; // horizontal scale
-        const b = 80;  // vertical scale
+        const a = 260; // horizontal scale (larger)
+        const b = 120;  // vertical scale (larger)
         const anchors = [];
         // Create anchor points
         pages.forEach((page, idx) => {
@@ -36,18 +36,18 @@
             aEl.href = page;
             aEl.className = 'infinity-anchor';
             aEl.style.position = 'absolute';
-            aEl.style.width = '40px';
-            aEl.style.height = '40px';
-            aEl.style.display = 'flex';
-            aEl.style.alignItems = 'center';
-            aEl.style.justifyContent = 'center';
-            aEl.style.borderRadius = '50%';
-            aEl.style.background = '#fff';
-            aEl.style.boxShadow = '0 2px 8px rgba(0,0,0,0.10)';
+            aEl.style.width = 'auto';
+            aEl.style.height = 'auto';
+            aEl.style.display = 'block';
+            aEl.style.background = 'transparent';
+            aEl.style.boxShadow = 'none';
             aEl.style.fontWeight = 'bold';
             aEl.style.fontFamily = 'Roboto Mono, monospace';
-            aEl.style.fontSize = '1.1em';
-            aEl.style.transition = 'background 0.2s, color 0.2s';
+            aEl.style.fontSize = '0.85em';
+            aEl.style.color = '#222';
+            aEl.style.textAlign = 'center';
+            aEl.style.textDecoration = 'none';
+            aEl.style.transition = 'color 0.2s';
             aEl.textContent = idx + 1;
             infinityNav.appendChild(aEl);
             anchors.push(aEl);
@@ -62,11 +62,9 @@
                 const theta = (2 * Math.PI * idx) / anchors.length + t;
                 const x = cx + a * Math.sin(theta);
                 const y = cy + b * Math.sin(2 * theta) / 2;
-                aEl.style.left = `${x - 20}px`;
-                aEl.style.top = `${y - 20}px`;
-                // Optional: color highlight for first/last
-                aEl.style.background = idx === 0 ? '#ffe082' : '#fff';
-                aEl.style.color = idx === 0 ? '#222' : '#222';
+                aEl.style.left = `${x - 10}px`;
+                aEl.style.top = `${y - 10}px`;
+                aEl.style.color = idx === 0 ? '#ffe082' : '#222';
             });
             requestAnimationFrame(animateInfinity);
         }
@@ -75,9 +73,12 @@
         <style>
         .infinity-nav-wrapper {
             position: relative;
-            width: 500px;
-            height: 500px;
-            margin: 0 auto;
+            width: 700px;
+            height: 350px;
+            margin: 0 auto 32px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .infinity-nav {
             position: absolute;
@@ -87,25 +88,23 @@
         }
         .infinity-anchor {
             position: absolute;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            width: auto;
+            height: auto;
+            display: block;
+            background: transparent;
+            box-shadow: none;
             font-weight: bold;
             font-family: 'Roboto Mono', monospace;
-            font-size: 1.1em;
-            transition: background 0.2s, color 0.2s;
-            border: 2px solid #eee;
+            font-size: 0.85em;
+            color: #222;
+            text-align: center;
+            text-decoration: none;
             cursor: pointer;
+            border: none;
+            padding: 0;
         }
         .infinity-anchor:hover {
-            background: #222;
-            color: #fff;
-            border-color: #ffe082;
+            color: #ffe082;
         }
         </style>
 </body>
