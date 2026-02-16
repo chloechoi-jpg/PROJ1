@@ -13,108 +13,100 @@
         <div style="text-align:center; margin-top: 40px; margin-bottom: 20px;">
             <button class="start-btn" onclick="location.href='pages/page1.html'">START</button>
         </div>
-        <!-- Rotating circle of anchor points (replaces video) -->
-        <div class="circle-nav-wrapper">
-            <svg class="circle-nav-lines" width="500" height="500"></svg>
-            <div class="circle-nav">
-                <!-- Anchor points will be injected by JS -->
-            </div>
+        <!-- Infinity (figure 8) animation of anchor points -->
+        <div class="infinity-nav-wrapper" style="position:relative; width:500px; height:500px; margin:0 auto;">
+            <div class="infinity-nav" style="position:absolute; left:0; top:0; width:100%; height:100%;"></div>
         </div>
     </div>
 
         <script>
         // Map of page links (story paths)
-        const pageLinks = [
-            [2,3,4], // page1
-            [5,6],   // page2
-            [7,8],   // page3
-            [9,10],  // page4
-            [11],    // page5
-            [13],    // page6
-            [14],    // page7
-            [15],    // page8
-            [17],    // page9
-            [19],    // page10
-            [20],    // page11
-            [22],    // page12
-            [20],    // page13
-            [20],    // page14
-            [21],    // page15
-            [25],    // page16
-            [20],    // page17
-            [22],    // page18
-            [23],    // page19
-            [24,28], // page20
-            [22],    // page21
-            [27,20], // page22
-            [24,26], // page23
-            [30],    // page24
-            [24,26], // page25
-            [],      // page26
-            [],      // page27
-            [27,24], // page28
-            [22],    // page29
-            []       // page30
-        ];
-
         const pages = Array.from({length: 30}, (_, i) => `pages/page${i+1}.html`);
-        const circleNav = document.querySelector('.circle-nav');
-        const svg = document.querySelector('.circle-nav-lines');
-        const radius = 200;
-        const centerX = 250;
-        const centerY = 250;
-        let points = [];
+        const infinityNav = document.querySelector('.infinity-nav');
+        const width = 500;
+        const height = 500;
+        const cx = width / 2;
+        const cy = height / 2;
+        const a = 140; // horizontal scale
+        const b = 80;  // vertical scale
+        const anchors = [];
+        // Create anchor points
         pages.forEach((page, idx) => {
-                const angle = (2 * Math.PI * idx) / pages.length;
-                const x = centerX + radius * Math.cos(angle);
-                const y = centerY + radius * Math.sin(angle);
-                points.push({x, y});
-                const a = document.createElement('a');
-                a.href = page;
-                a.className = 'circle-anchor';
-                a.style.left = `${x - 20}px`;
-                a.style.top = `${y - 20}px`;
-                a.textContent = idx + 1;
-                circleNav.appendChild(a);
+            const aEl = document.createElement('a');
+            aEl.href = page;
+            aEl.className = 'infinity-anchor';
+            aEl.style.position = 'absolute';
+            aEl.style.width = '40px';
+            aEl.style.height = '40px';
+            aEl.style.display = 'flex';
+            aEl.style.alignItems = 'center';
+            aEl.style.justifyContent = 'center';
+            aEl.style.borderRadius = '50%';
+            aEl.style.background = '#fff';
+            aEl.style.boxShadow = '0 2px 8px rgba(0,0,0,0.10)';
+            aEl.style.fontWeight = 'bold';
+            aEl.style.fontFamily = 'Roboto Mono, monospace';
+            aEl.style.fontSize = '1.1em';
+            aEl.style.transition = 'background 0.2s, color 0.2s';
+            aEl.textContent = idx + 1;
+            infinityNav.appendChild(aEl);
+            anchors.push(aEl);
         });
 
-        // Draw lines connecting only story paths
-        function drawLines(rot = 0) {
-            svg.innerHTML = '';
-            for (let i = 0; i < pageLinks.length; i++) {
-                const fromIdx = i;
-                pageLinks[i].forEach(toIdx => {
-                    // Convert to zero-based index
-                    const to = toIdx - 1;
-                    // Calculate rotated positions
-                    const angleFrom = (2 * Math.PI * fromIdx) / pages.length + rot;
-                    const angleTo = (2 * Math.PI * to) / pages.length + rot;
-                    const x1 = centerX + radius * Math.cos(angleFrom);
-                    const y1 = centerY + radius * Math.sin(angleFrom);
-                    const x2 = centerX + radius * Math.cos(angleTo);
-                    const y2 = centerY + radius * Math.sin(angleTo);
-                    svg.innerHTML += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#888" stroke-width="1" />`;
-                });
-            }
-        }
-
-        // Animate rotation
-        let rot = 0;
-        function animate() {
-            rot += 0.001; // even slower rotation
-            // Move anchors
-            document.querySelectorAll('.circle-anchor').forEach((a, idx) => {
-                const angle = (2 * Math.PI * idx) / pages.length + rot;
-                const x = centerX + radius * Math.cos(angle);
-                const y = centerY + radius * Math.sin(angle);
-                a.style.left = `${x - 20}px`;
-                a.style.top = `${y - 20}px`;
+        // Animate along infinity (lemniscate) path
+        let t = 0;
+        function animateInfinity() {
+            t += 0.003;
+            anchors.forEach((aEl, idx) => {
+                // Parametric equation for lemniscate of Gerono (figure 8)
+                const theta = (2 * Math.PI * idx) / anchors.length + t;
+                const x = cx + a * Math.sin(theta);
+                const y = cy + b * Math.sin(2 * theta) / 2;
+                aEl.style.left = `${x - 20}px`;
+                aEl.style.top = `${y - 20}px`;
+                // Optional: color highlight for first/last
+                aEl.style.background = idx === 0 ? '#ffe082' : '#fff';
+                aEl.style.color = idx === 0 ? '#222' : '#222';
             });
-            drawLines(rot);
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateInfinity);
         }
-        drawLines();
-        animate();
+        animateInfinity();
         </script>
+        <style>
+        .infinity-nav-wrapper {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+        }
+        .infinity-nav {
+            position: absolute;
+            left: 0; top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .infinity-anchor {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            font-weight: bold;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.1em;
+            transition: background 0.2s, color 0.2s;
+            border: 2px solid #eee;
+            cursor: pointer;
+        }
+        .infinity-anchor:hover {
+            background: #222;
+            color: #fff;
+            border-color: #ffe082;
+        }
+        </style>
 </body>
 </html>
